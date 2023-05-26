@@ -426,11 +426,11 @@ func newK8sFailingStatusUpdateClient(initObjs ...runtime.Object) *k8sFailingStat
 	}
 }
 
-func (k *k8sFailingStatusUpdateClient) Get(ctx context.Context, key client.ObjectKey, obj client.Object, opts ...client.GetOption) error {
+func (k *k8sFailingStatusUpdateClient) Get(ctx context.Context, key client.ObjectKey, obj client.Object, _ ...client.GetOption) error {
 	return k.client.Get(ctx, key, obj)
 }
 
-func (k *k8sFailingStatusUpdateClient) Update(ctx context.Context, obj client.Object, opts ...client.UpdateOption) error {
+func (k *k8sFailingStatusUpdateClient) Update(_ context.Context, _ client.Object, _ ...client.UpdateOption) error {
 	return errors.New("internal error")
 }
 

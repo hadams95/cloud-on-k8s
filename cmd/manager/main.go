@@ -1027,7 +1027,8 @@ func setupWebhook(
 
 	keyPath := filepath.Join(mgr.GetWebhookServer().CertDir, certificates.CertFileName)
 	log.Info("Polling for the webhook certificate to be available", "path", keyPath)
-	err := wait.PollImmediate(interval, timeout, func() (bool, error) {
+	//nolint:staticcheck
+	err := wait.PollImmediateWithContext(ctx, interval, timeout, func(_ context.Context) (bool, error) {
 		_, err := os.Stat(keyPath)
 		// err could be that the file does not exist, but also that permission was denied or something else
 		if os.IsNotExist(err) {
